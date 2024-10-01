@@ -1,0 +1,15 @@
+services:
+  shopify-cli:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shopify-theme-vp
+    image: dcs/shopify-cli:vp
+    volumes:
+      - ./theme:/theme  # Mounts current directory for theme development
+    env_file:
+      - .env  # Loads environment variables for Shopify CLI
+    ports:
+      - "127.0.0.1:${SHOPIFY_FLAG_PORT}:9292"  # Use the dynamic port from .env
+    working_dir: /theme  # Set the working directory to /app
+    command: /bin/zsh  # Use Zsh as the default shell
